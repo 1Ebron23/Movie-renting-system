@@ -1,0 +1,29 @@
+﻿<Window x:Class="MovieRentingManager.EditMovieDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MovieRentingManager"
+        mc:Ignorable="d"
+        Title="EditMovieDialog" Height="450" Width="250">
+    <StackPanel Margin="10">
+        <Label>Title</Label>
+        <TextBox x:Name="titleTextBox"/>
+        <Label>Director</Label>
+        <TextBox x:Name="directorTextBox" />
+        <Label>Genre</Label>
+        <TextBox x:Name="genreTextBox" />
+        <Label>Release Year</Label>
+        <TextBox x:Name="releaseYearTextBox" />
+        <Label>Duration (minutes)</Label>
+        <TextBox x:Name="durationTextBox" />
+        <Label>Rating</Label>
+        <TextBox x:Name="ratingTextBox" />
+        <Label>Description</Label>
+        <TextBox x:Name="descriptionTextBox" />
+        <Label>Number of Copies</Label>
+        <TextBox x:Name="availableCopiesTextBox" />
+        <Label/>
+        <Button Content="Save" Click="SaveButton_Click"/>
+    </StackPanel>
+</Window>

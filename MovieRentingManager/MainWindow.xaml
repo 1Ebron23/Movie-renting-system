@@ -1,0 +1,186 @@
+﻿<Window x:Class="MovieRentingManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MovieRentingManager"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="1250" >
+    <Grid>
+        <TabControl>
+            <!-- Movies Tab -->
+            <TabItem Header="Movies">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- For the search section -->
+                        <RowDefinition Height="*"/>
+                        <!-- For the DataGrid to fill the available space -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- For the CRUD buttons -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Expanded Search Section -->
+                    <WrapPanel Grid.Row="0" VerticalAlignment="Top">
+                        <StackPanel Margin="5">
+                            <Label Content="Title" />
+                            <TextBox x:Name="SearchMovieTitleTextBox" Width="150" Height="20" ToolTip="Title"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <Label Content="Director" />
+                            <TextBox x:Name="SearchMovieDirectorTextBox" Width="150" Height="20" ToolTip="Director"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <Label Content="Year" />
+                            <TextBox x:Name="SearchMovieYearTextBox" Width="150" Height="20" ToolTip="Year" />
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <Label Content="Genre" />
+                            <TextBox x:Name="SearchMovieGenreTextBox" Width="150" Height="20" ToolTip="Genre"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <Label Content="Rating" />
+                            <TextBox x:Name="SearchMovieRatingTextBox" Width="150" Height="20" ToolTip="Rating"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <Label Content="Duration (minutes)" />
+                            <TextBox x:Name="SearchMovieDurationTextBox" Width="150" Height="20" ToolTip="Duration"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <Label Content="Available Copies" />
+                            <TextBox x:Name="SearchMovieAvailableCopiesTextBox" Width="150" Height="20" ToolTip="Available Copies"/>
+                        </StackPanel>
+                        <Button Content="Search" Width="75" Height="20" Margin="10,35,0,0" Click="Movie_Search_Button_Click"/>
+                        <Button x:Name="GetAllMovies" Content="Get all movies" Width="75" Height="20" Click="GetAllMovies_Click"/>
+                    </WrapPanel>
+
+
+                    <!-- DataGrid -->
+                    <!--TODO: Change the ItemsSource to Binding Movies or whatever is the name of your ObservableCollection that contains Movies objects-->
+                    <DataGrid x:Name="MoviesDataGrid" ItemsSource="{Binding Movies}" IsReadOnly="True" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
+                            <DataGridTextColumn Header="Director" Binding="{Binding Director}" />
+                            <DataGridTextColumn Header="Genre" Binding="{Binding Genre}" />
+                            <DataGridTextColumn Header="Year" Binding="{Binding ReleaseYear}" />
+                            <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" />
+                            <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" />
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                            <DataGridTextColumn Header="Available Copies" Binding="{Binding AvailableCopies}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- CRUD Buttons -->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+                        <Button x:Name="AddMovieButton" Content="Add" Margin="5" Click="AddMovieButton_Click"/>
+                        <Button x:Name="EditMovieButton" Content="Edit" Margin="5" Click="EditMovieButton_Click"/>
+                        <Button x:Name="DeleteMovieButton" Content="Delete" Margin="5" Click="DeleteMovieButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Users Tab -->
+            <TabItem Header="Users">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- For the search section -->
+                        <RowDefinition Height="*"/>
+                        <!-- For the DataGrid to fill the available space -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- For the CRUD buttons -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Expanded Search Section -->
+                    <WrapPanel Grid.Row="0" VerticalAlignment="Top">
+                        <StackPanel Margin="5">
+                            <Label Content="Name" />
+                            <TextBox x:Name="SearchUserNameTextBox" Width="150" Height="20" ToolTip="Name"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <Label Content="Phone" />
+                            <TextBox x:Name="SearchUserPhoneTextBox" Width="150" Height="20" ToolTip="Phone"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <Label Content="Email" />
+                            <TextBox x:Name="SearchUserEmailTextBox" Width="150" Height="20" ToolTip="Email"/>
+                        </StackPanel>
+                        <Button Content="Search" Width="75" Height="40" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
+                    </WrapPanel>
+
+                    <!-- DataGrid for displaying users -->
+                    <DataGrid x:Name="UsersDataGrid" ItemsSource="{Binding Users}" IsReadOnly="True" Grid.Row="1" Margin="0,10" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- CRUD Buttons -->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                        <Button x:Name="AddUserButton" Content="Add" Margin="5" Click="AddUserButton_Click"/>
+                        <Button x:Name="EditUserButton" Content="Edit" Margin="5" Click="EditUserButton_Click"/>
+                        <Button x:Name="DeleteUserButton" Content="Delete" Margin="5" Click="DeleteUserButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Loans Tab -->
+            <TabItem Header="Loans">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- For the search section -->
+                        <RowDefinition Height="*"/>
+                        <!-- For the DataGrid to fill the available space -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- For the CRUD buttons -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Expanded Search Section -->
+                    <WrapPanel Grid.Row="0" VerticalAlignment="Top">
+                        <StackPanel Margin="5">
+                            <Label Content="Movie Name" />
+                            <TextBox x:Name="SearchLoanMovieNameTextBox" Width="150" Height="20" ToolTip="Movie Name"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <Label Content="User Name" />
+                            <TextBox x:Name="SearchLoanUserNameTextBox" Width="150" Height="20" ToolTip="User Name"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <Label Content="Due Date" />
+                            <TextBox x:Name="SearchLoanDueDateTextBox" Width="150" Height="20" ToolTip="Due Date"/>
+                        </StackPanel>
+                        <Button Content="Search" Width="75" Height="40" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
+                    </WrapPanel>
+
+                    <!-- DataGrid for displaying loans -->
+                    <!--TODO: Change the ItemsSource to Binding Loans or whatever is the name of your ObservableCollection that contains Loans objects-->
+                    <DataGrid x:Name="LoansDataGrid" ItemsSource="{Binding Loans}"  Grid.Row="1" Margin="0,10" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="LoanID" Binding="{Binding LoanId}" />
+                            <DataGridTextColumn Header="MovieID" Binding="{Binding MovieId}" />
+                            <DataGridTextColumn Header="UserID" Binding="{Binding UserId}" />
+                            <DataGridTextColumn Header="DueDate" Binding="{Binding DueDate}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- CRUD Buttons -->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                        <Button x:Name="AddLoanButton" Content="Add" Margin="5"/>
+                        <Button x:Name="EditLoanButton" Content="Edit" Margin="5"/>
+                        <Button x:Name="ReturnLoanButton" Content="Return" Margin="5"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
